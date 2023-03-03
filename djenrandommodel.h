@@ -46,7 +46,7 @@ typedef struct {
         double correlation;
         double entropy;
         double averageentropy;
-        int    n;
+        long long    n;
         double bias;
         double mean;
         double variance;
