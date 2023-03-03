@@ -456,7 +456,7 @@ int main(int argc, char** argv)
     double prob;
     
     int samplenum;
-    int simrun;
+    long long simrun;
     unsigned char thesample[256];
     unsigned char thebpbsample[2048];
     double floatingpointsamples[256];
@@ -1133,9 +1133,9 @@ int main(int argc, char** argv)
         abort=1;
     }
         
-    if (kilobytes < 1)
+    if (kilobytes < 0)
     {
-            fprintf(stderr,"Error: -k n: Output size must be 1 or more kilobytes. n must be an integer of 1 or greater. Supplied value = %d\n",kilobytes);
+            fprintf(stderr,"Error: -k n: Output size must be 1 or more kilobytes, or 0 to indicate unlimited size. n must be an integer of 0 or greater. Supplied value = %d\n",kilobytes);
             abort=1;
         }
     if ((width >256) || (width < 1))
@@ -1483,7 +1483,7 @@ int main(int argc, char** argv)
     if (model==MODEL_NORMAL) /* or any other floating point model that is added */
     {
         
-        for (simrun =0; simrun < kilobytes; simrun++)
+        for (simrun =0; simrun < kilobytes || kilobytes == 0; simrun++)
         {
             for (onek=0;onek<4;onek++)
             {
@@ -1526,7 +1526,7 @@ int main(int argc, char** argv)
     {
         lineindex = 0;
         
-        for (simrun =0; ((simrun < kilobytes) || ((model==MODEL_FILE) && (no_k==1))); simrun++)
+        for (simrun =0; ((simrun < kilobytes) || (kilobytes == 0) || ((model==MODEL_FILE) && (no_k==1))); simrun++)
         {
             for (onek=0;onek<4;onek++)
             {
